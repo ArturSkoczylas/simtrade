@@ -1,0 +1,21 @@
+# A user-written agent loaded from a .py file, plus built-in features.
+#   simtrade backtest examples/custom.yaml
+
+name: reversal
+universe:
+  preset: main
+agent:
+  class: my_agent.py:ShortTermReversal   # path relative to this YAML file
+  params:
+    lookback: 5
+    n_positions: 20
+features:
+  - class: simtrade.features.Returns
+    params: {windows: [1, 5, 21]}
+  - class: simtrade.features.Volatility
+    params: {windows: [21]}
+simulation:
+  start: 2018-01-01
+  rebalance: weekly
+  benchmark: ISF.L
+output_dir: results

@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "simtrade"
+version = "0.1.0"
+description = "Daily trading simulator for London Stock Exchange equities with a pluggable agent interface."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "simtrade contributors" }]
+keywords = ["backtesting", "trading", "simulation", "london stock exchange", "reinforcement learning", "quant"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "pyarrow>=12",
+    "pydantic>=2.5",
+    "pyyaml>=6",
+    "typer>=0.9",
+    "exchange_calendars>=4.5",
+    "yfinance>=0.2.40",
+    "openpyxl>=3.1",
+    "requests>=2.28",
+]
+
+[project.optional-dependencies]
+rl = ["gymnasium>=0.29"]
+plots = ["matplotlib>=3.7"]
+repair = ["scipy>=1.10"]
+all = ["gymnasium>=0.29", "matplotlib>=3.7", "scipy>=1.10"]
+dev = ["pytest>=7", "gymnasium>=0.29", "matplotlib>=3.7", "ruff>=0.4"]
+
+[project.scripts]
+simtrade = "simtrade.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/your-username/simtrade"
+Issues = "https://github.com/your-username/simtrade/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/simtrade"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "I"]
+ignore = ["E731", "B905", "B008", "B027"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402"]
+"src/simtrade/cli.py" = ["B008"]

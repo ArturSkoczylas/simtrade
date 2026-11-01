@@ -1,0 +1,38 @@
+# Momentum on the whole London Stock Exchange (Main Market + AIM).
+#
+#   simtrade universe load Instrument_list.xlsx     # once
+#   simtrade data update                            # first run downloads everything; later runs are incremental
+#   simtrade backtest examples/momentum.yaml
+
+name: lse-momentum
+# data_dir: ~/.simtrade          # default; or set SIMTRADE_HOME
+
+universe:
+  preset: lse_all                # lse_all | main | aim | lse_shares_only | everything
+  # max_tickers: 200             # uncomment for a quick trial
+
+agent:
+  class: simtrade.agents.MomentumAgent
+  params:
+    lookback: 252
+    skip: 21
+    top_k: 30
+    liquid_pool: 300             # only consider the 300 most traded names
+
+simulation:
+  start: 2012-01-01
+  # end: 2024-12-31              # default: latest data in the store
+  initial_cash: 100000
+  rebalance: monthly
+  benchmark: ISF.L               # iShares Core FTSE 100 ETF (fetched by `data update`)
+  broker:
+    execution: next_open
+    max_participation: 0.05      # at most 5% of a stock's average daily traded value
+    fractional_shares: false
+    costs:
+      commission_fixed: 5.0      # GBP per order
+      slippage_bps: 10
+      half_spread_bps: 10
+      stamp_duty_rate: 0.005     # applied to Main Market UK shares only (AIM exempt)
+
+output_dir: results
