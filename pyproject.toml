@@ -10,7 +10,7 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
-authors = [{ name = "simtrade contributors" }]
+authors = [{ name = "Artur Skoczylas" }]
 keywords = ["backtesting", "trading", "simulation", "london stock exchange", "reinforcement learning", "quant"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -43,8 +43,8 @@ dev = ["pytest>=7", "gymnasium>=0.29", "matplotlib>=3.7", "ruff>=0.4"]
 simtrade = "simtrade.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/your-username/simtrade"
-Issues = "https://github.com/your-username/simtrade/issues"
+Homepage = "https://github.com/ArturSkoczylas/simtrade"
+Issues = "https://github.com/ArturSkoczylas/simtrade"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/simtrade"]
